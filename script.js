@@ -16,13 +16,15 @@ function start(){
 }
 }
 function stop(){
+if(isRunning){
+         clearInterval(timer);
 
-     clearInterval(timer);
-   
+}
+isRunning=false;
 
 }
 function reset(){
-
+if(isRunning){
     clearInterval(timer);
     startime=0;
     elaspedtime=0;
@@ -30,23 +32,32 @@ function reset(){
     minutues.textContent="00";
     seconds.textContent='00';
     miliseconds.textContent='00';
+    start()
 
+}
+isRunning=true
 }
 
 function update(){
-
+    
     const currenttime=Date.now();
     const elaspedtime=currenttime-startime;
     let hour=Math.floor((elaspedtime)/(1000*60*60));
     let minutue=Math.floor(elaspedtime/(1000*60)%60);
     let second=Math.floor(elaspedtime/1000%60)
     let milliseconds=Math.floor(elaspedtime%1000/10)
+    hour=String(hour).padStart(2, "0");
+    minutue=String(minutue).padStart(2, "0");
+    second=String(second).padStart(2, "0");
+    milliseconds=String(milliseconds).padStart(2, "0");
     hours.textContent=hour;
     minutues.textContent=minutue;
     seconds.textContent=second;
     miliseconds.textContent=milliseconds;
-    
+    start()
 }
+
+
   const setFavicon = (emoji) => {
   const canvas = document.createElement('canvas');
   canvas.height = 32;
